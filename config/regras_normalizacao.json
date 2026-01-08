@@ -1,0 +1,45 @@
+{
+    "transporte": {
+        "keywords": [
+            "uber",
+            "99",
+            "autopass",
+            "metro",
+            "onibus",
+            "cptm"
+        ],
+        "categoria": "Transporte",
+        "subcategoria": "Mobilidade"
+    },
+    "alimentacao": {
+        "keywords": [
+            "restaurante",
+            "ifood",
+            "padaria",
+            "lanchonete",
+            "bar"
+        ],
+        "categoria": "Alimentação",
+        "subcategoria": "Refeições"
+    },
+    "salario": {
+        "keywords": [
+            "salario",
+            "remuneracao",
+            "pro labore"
+        ],
+        "categoria": "Renda",
+        "subcategoria": "Salário"
+    },
+    "assinaturas": {
+        "keywords": [
+            "netflix",
+            "spotify",
+            "amazon",
+            "prime",
+            "deezer"
+        ],
+        "categoria": "Assinaturas",
+        "subcategoria": "Serviços"
+    }
+}
