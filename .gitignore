@@ -1,0 +1,26 @@
+# Arquivos brutos
+financas/bruto/
+financas/intermediario/
+financas/normalizado/
+
+# Logs
+financas/logs/
+
+# Arquivos sensíveis
+*.ofx
+*.pdf
+*.xls
+*.xlsx
+*.csv
+*.parquet
+
+# Python
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+venv/
+.env
+
+# VS Code
+.vscode/
