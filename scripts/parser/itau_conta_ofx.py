@@ -3,6 +3,8 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+
 def parse_itau_ofx(path):
     with open(path, "r", encoding="latin-1") as f:
         content = f.read()
@@ -46,17 +48,20 @@ def parse_itau_ofx(path):
 
     return pd.DataFrame(rows)
 
+
 def save_intermediate(df):
-    output = Path("financas/intermediario/itau/conta_corrente.parquet")
+    output = BASE_DIR / "intermediario" / "itau" / "conta_corrente.parquet"
     output.parent.mkdir(parents=True, exist_ok=True)
     df.to_parquet(output, index=False)
     print("Arquivo salvo em:", output)
+
 
 def process_itau_ofx(path):
     df = parse_itau_ofx(path)
     save_intermediate(df)
     return df
 
+
 if __name__ == "__main__":
-    caminho = r"C:\Users\carlo\Organizador Financeiro\financas\bruto\itau\conta\ofx\seu_arquivo.ofx"
+    caminho = BASE_DIR / "bruto" / "itau" / "conta" / "ofx" / "seu_arquivo.ofx"
     process_itau_ofx(caminho)

@@ -1,26 +1,86 @@
-# Arquivos brutos
-financas/bruto/
-financas/intermediario/
-financas/normalizado/
-
-# Logs
-financas/logs/
-
-# Arquivos sensíveis
-*.ofx
-*.pdf
-*.xls
-*.xlsx
-*.csv
-*.parquet
-
-# Python
+# ============================================
+# PYTHON
+# ============================================
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.egg-info/
+*.egg
+*.log
 
-# Ambiente virtual
+# Virtual envs
 venv/
-.env
+.env/
+.venv/
 
-# VS Code
+# ============================================
+# VS CODE
+# ============================================
 .vscode/
+.history/
+
+# ============================================
+# PARQUET, ARROW, FEATHER
+# (arquivos gerados automaticamente)
+# ============================================
+*.parquet
+*.arrow
+*.feather
+
+# ============================================
+# ARQUIVOS FINANCEIROS BRUTOS
+# (não devem ir para o Git)
+# ============================================
+bruto/**/*.csv
+bruto/**/*.txt
+bruto/**/*.ofx
+bruto/**/*.xls
+bruto/**/*.xlsx
+
+# ============================================
+# ARQUIVOS INTERMEDIÁRIOS E NORMALIZADOS
+# ============================================
+intermediario/
+normalizado/
+analises/
+
+# ============================================
+# LOGS E SAÍDAS TEMPORÁRIAS
+# ============================================
+logs/
+*.log
+*.tmp
+*.bak
+
+# ============================================
+# DASHBOARD (arquivos gerados)
+# ============================================
+ui/dashboard/assets/
+
+# ============================================
+# BACKUPS, CÓPIAS E ARQUIVOS TEMPORÁRIOS
+# ============================================
+* - Copia.py
+* - Copia (2).py
+* - Copia.txt
+* - Copia (2).txt
+*~
+*.old
+*.backup
+
+# ============================================
+# CONFIGURAÇÕES LOCAIS
+# ============================================
+.env.local
+.env.development.local
+.env.production.local
+
+# ============================================
+# SISTEMA OPERACIONAL
+# ============================================
+Thumbs.db
+.DS_Store
+desktop.ini

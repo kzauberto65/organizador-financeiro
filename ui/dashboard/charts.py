@@ -1,9 +1,8 @@
 import plotly.express as px
 import pandas as pd
 
-
 # ============================================================
-# GRÁFICOS EXISTENTES
+# EVOLUÇÃO MENSAL
 # ============================================================
 
 def grafico_evolucao(df_mensal):
@@ -18,41 +17,79 @@ def grafico_evolucao(df_mensal):
     return fig
 
 
-def grafico_categoria(df_cat):
-    df_cat = df_cat.sort_values("total_categoria", ascending=True)
+# ============================================================
+# CATEGORIAS — RECEITAS E DESPESAS SEPARADAS
+# ============================================================
 
-    fig = px.bar(
-        df_cat,
+def grafico_categoria(df_cat):
+    df = df_cat.copy()
+
+    df["categoria"] = df["categoria"].replace({
+        "Transferência": "Transferências",
+        "transferência": "Transferências"
+    })
+
+    receitas = df[df["total_categoria"] > 0].sort_values("total_categoria")
+    despesas = df[df["total_categoria"] < 0].sort_values("total_categoria")
+
+    fig_receita = px.bar(
+        receitas,
         x="total_categoria",
         y="categoria",
         orientation="h",
-        title="Gastos por Categoria"
+        title="Receitas por Categoria",
+        color_discrete_sequence=["green"]
     )
-    fig.update_layout(template="plotly_dark")
-    return fig
+    fig_receita.update_layout(template="plotly_dark")
 
-
-def grafico_subcategoria(df_sub):
-    df_sub = df_sub.sort_values("total_subcategoria", ascending=True)
-
-    fig = px.bar(
-        df_sub,
-        x="total_subcategoria",
-        y="subcategoria",
+    fig_despesa = px.bar(
+        despesas,
+        x="total_categoria",
+        y="categoria",
         orientation="h",
-        title="Gastos por Subcategoria"
+        title="Despesas por Categoria",
+        color_discrete_sequence=["red"]
     )
-    fig.update_layout(template="plotly_dark")
-    return fig
+    fig_despesa.update_layout(template="plotly_dark")
 
-
-def tabela_top10(df):
-    df_sorted = df.sort_values("valor", ascending=False).head(10)
-    return df_sorted
+    return fig_receita, fig_despesa
 
 
 # ============================================================
-# NOVOS GRÁFICOS INTELIGENTES
+# SUBCATEGORIAS — RECEITAS E DESPESAS SEPARADAS
+# ============================================================
+
+def grafico_subcategoria(df_sub):
+    df = df_sub.copy()
+
+    receitas = df[df["total_subcategoria"] > 0].sort_values("total_subcategoria")
+    despesas = df[df["total_subcategoria"] < 0].sort_values("total_subcategoria")
+
+    fig_receita = px.bar(
+        receitas,
+        x="total_subcategoria",
+        y="subcategoria",
+        orientation="h",
+        title="Receitas por Subcategoria",
+        color_discrete_sequence=["green"]
+    )
+    fig_receita.update_layout(template="plotly_dark")
+
+    fig_despesa = px.bar(
+        despesas,
+        x="total_subcategoria",
+        y="subcategoria",
+        orientation="h",
+        title="Despesas por Subcategoria",
+        color_discrete_sequence=["red"]
+    )
+    fig_despesa.update_layout(template="plotly_dark")
+
+    return fig_receita, fig_despesa
+
+
+# ============================================================
+# ASSINATURAS
 # ============================================================
 
 def grafico_assinaturas(df):
@@ -64,8 +101,7 @@ def grafico_assinaturas(df):
         return fig
 
     resumo = (
-        assinaturas
-        .groupby("descricao_normalizada")["valor"]
+        assinaturas.groupby("descricao_normalizada")["valor"]
         .sum()
         .reset_index()
         .sort_values("valor", ascending=False)
@@ -75,15 +111,24 @@ def grafico_assinaturas(df):
         resumo,
         x="descricao_normalizada",
         y="valor",
-        title="Gastos com Assinaturas Recorrentes",
+        title="Gastos com Assinaturas",
         text_auto=True
     )
     fig.update_layout(template="plotly_dark")
     return fig
 
 
+# ============================================================
+# PARCELAMENTOS
+# ============================================================
+
 def grafico_parcelamentos(df):
-    parc = df[df["parcela_atual"].notna()].copy()   # <<< CORREÇÃO AQUI
+    df = df.copy()
+
+    if "parcela_atual" not in df.columns:
+        df["parcela_atual"] = None
+
+    parc = df[df["parcela_atual"].notna()].copy()
 
     if parc.empty:
         fig = px.bar(title="Nenhum parcelamento encontrado")
@@ -95,26 +140,28 @@ def grafico_parcelamentos(df):
         axis=1
     )
 
-    resumo = (
-        parc.groupby("label")["valor"]
-        .sum()
-        .reset_index()
-        .sort_values("valor", ascending=False)
-    )
-
     fig = px.bar(
-        resumo,
+        parc,
         x="label",
         y="valor",
-        title="Parcelamentos Ativos",
-        text_auto=True
+        title="Parcelamentos",
+        text="valor"
     )
     fig.update_layout(template="plotly_dark")
     return fig
 
 
+# ============================================================
+# TRANSFERÊNCIAS PF
+# ============================================================
+
 def grafico_transferencias_pf(df):
-    transf = df[df["destinatario"].notna()].copy()  # <<< E AQUI TAMBÉM
+    df = df.copy()
+
+    if "destinatario" not in df.columns:
+        df["destinatario"] = None
+
+    transf = df[df["destinatario"].notna()].copy()
 
     if transf.empty:
         fig = px.bar(title="Nenhuma transferência para PF encontrada")

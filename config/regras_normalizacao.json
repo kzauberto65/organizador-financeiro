@@ -1,45 +1,64 @@
 {
-    "transporte": {
-        "keywords": [
-            "uber",
-            "99",
-            "autopass",
-            "metro",
-            "onibus",
-            "cptm"
-        ],
-        "categoria": "Transporte",
-        "subcategoria": "Mobilidade"
+    "categorias_keywords": {
+        "transporte": {
+            "keywords": [
+                "uber",
+                "99",
+                "autopass",
+                "metro",
+                "onibus",
+                "cptm"
+            ],
+            "categoria": "Transporte",
+            "subcategoria": "Mobilidade"
+        },
+        "alimentacao": {
+            "keywords": [
+                "restaurante",
+                "ifood",
+                "padaria",
+                "lanchonete",
+                "bar"
+            ],
+            "categoria": "Alimentação",
+            "subcategoria": "Refeições"
+        },
+        "salario": {
+            "keywords": [
+                "salario",
+                "remuneracao",
+                "pro labore"
+            ],
+            "categoria": "Renda",
+            "subcategoria": "Salário"
+        },
+        "assinaturas": {
+            "keywords": [
+                "netflix",
+                "spotify",
+                "amazon",
+                "prime",
+                "deezer"
+            ],
+            "categoria": "Assinaturas",
+            "subcategoria": "Serviços"
+        }
     },
-    "alimentacao": {
-        "keywords": [
-            "restaurante",
-            "ifood",
-            "padaria",
-            "lanchonete",
-            "bar"
-        ],
-        "categoria": "Alimentação",
-        "subcategoria": "Refeições"
-    },
-    "salario": {
-        "keywords": [
-            "salario",
-            "remuneracao",
-            "pro labore"
-        ],
-        "categoria": "Renda",
-        "subcategoria": "Salário"
-    },
-    "assinaturas": {
-        "keywords": [
-            "netflix",
-            "spotify",
-            "amazon",
-            "prime",
-            "deezer"
-        ],
-        "categoria": "Assinaturas",
-        "subcategoria": "Serviços"
-    }
+    "regras_descricao": [
+        {
+            "descricao_normalizada": "pagamento debito automatico",
+            "categoria": "Transferência",
+            "subcategoria": "Pagamento de Fatura"
+        },
+        {
+            "descricao_normalizada": "pagamento fatura",
+            "categoria": "Transferência",
+            "subcategoria": "Pagamento de Fatura"
+        },
+        {
+            "descricao_normalizada": "pagamento cartao",
+            "categoria": "Transferência",
+            "subcategoria": "Pagamento de Fatura"
+        }
+    ]
 }
